@@ -81,13 +81,16 @@ Authorization: {{token}}
 DELETE {{host}}/api/users?soft=false
 Authorization: {{token}}
 
+##############################################################
+# Practica Intermedia
+##############################################################
 
-##############################################################
-# Practica Final
-##############################################################
+@host1 = http://localhost:3000
+
+# Clientes
 
 ### CREAR cliente
-POST {{host}}/api/clients
+POST {{host1}}/api/clients
 Content-Type: application/json
 Authorization: {{token}}
 
@@ -103,15 +106,15 @@ Authorization: {{token}}
 @idcliente =  67ee5f3a61ed47b8ddd01c78
 
 ### OBTENER todos los clientes (no archivados)
-GET {{host}}/api/clients
+GET {{host1}}/api/clients
 Authorization: {{token}}
 
 ### OBTENER cliente por ID
-GET {{host}}/api/clients/{{idcliente}}
+GET {{host1}}/api/clients/{{idcliente}}
 Authorization: {{token}}
 
 ### ACTUALIZAR cliente
-PUT {{host}}/api/clients/{{idcliente}}
+PUT {{host1}}/api/clients/{{idcliente}}
 Content-Type: application/json
 Authorization: {{token}}
 
@@ -121,14 +124,59 @@ Authorization: {{token}}
 }
 
 ### ARCHIVAR cliente
-PATCH {{host}}/api/clients/{{idcliente}}/archive
+PATCH {{host1}}/api/clients/{{idcliente}}/archive
 Authorization: {{token}}
 
 ### RECUPERAR cliente archivado
-PATCH {{host}}/api/clients/{{idcliente}}/recover
+PATCH {{host1}}/api/clients/{{idcliente}}/recover
 Authorization: {{token}}
 
 ### ELIMINAR cliente definitivamente
-DELETE {{host}}/api/clients/{{idcliente}}
+DELETE {{host1}}/api/clients/{{idcliente}}
 Authorization: {{token}}
 
+# Proyectos
+
+### CREAR proyecto
+POST {{host}}/api/projects
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "Proyecto Inicial",
+  "description": "Este es un proyecto de prueba",
+  "client": "{{idcliente}}"
+}
+
+###
+@projectId =  67ee65db55efea8785dc039d
+
+### OBTENER todos los proyectos del usuario
+GET {{host}}/api/projects
+Authorization: {{token}}
+
+### OBTENER un proyecto por ID
+GET {{host}}/api/projects/{{projectId}}
+Authorization: {{token}}
+
+### ACTUALIZAR proyecto
+PUT {{host}}/api/projects/{{projectId}}
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "Proyecto Actualizado",
+  "description": "Descripción actualizada del proyecto"
+}
+
+### ARCHIVAR proyecto
+PATCH {{host}}/api/projects/{{projectId}}/archive
+Authorization: {{token}}
+
+### RECUPERAR proyecto archivado
+PATCH {{host}}/api/projects/{{projectId}}/recover
+Authorization: {{token}}
+
+### ELIMINAR proyecto permanentemente
+DELETE {{host}}/api/projects/{{projectId}}
+Authorization: {{token}}

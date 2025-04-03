@@ -1,5 +1,11 @@
+##############################################################
+# Practica Intermedia
+##############################################################
+
+@host = http://localhost:3000
+
 ### Registro de usuario
-POST http://localhost:3000/api/auth/register
+POST {{host}}/api/auth/register
 Content-Type: application/json
 
 {
@@ -8,16 +14,16 @@ Content-Type: application/json
 }
 
 ### Validar email del usuario
-POST http://localhost:3000/api/auth/validate-email
+POST {{host}}/api/auth/validate-email
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE4NjgsImV4cCI6MTc0NDAzNjY2OH0.SBqYmbWEE_F_s9Rfq0Adi_oIh1PrlYqHZwN-KUPX4JI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWU1ZDg1NjFlZDQ3YjhkZGQwMWM2OCIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM2NzQ3NTgsImV4cCI6MTc0NDI3OTU1OH0.FV1z-oVFg2LLM4GHlfhINanpvtaFAl9CDsoxP71LtFU
 
 {
-  "code": "435310"
+  "code": "386208"
 }
 
 ### Login de usuario
-POST http://localhost:3000/api/auth/login
+POST {{host}}/api/auth/login
 Content-Type: application/json
 
 {
@@ -25,10 +31,13 @@ Content-Type: application/json
   "password": "12345678"
 }
 
+###
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWU1ZDg1NjFlZDQ3YjhkZGQwMWM2OCIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM2NzQ4NDcsImV4cCI6MTc0NDI3OTY0N30.WH3BJH3B9Vl9vrWROhQntpdPPsWyzIa4iENVensSv6I
+
 ### Onboarding - Datos personales
-PUT http://localhost:3000/api/users/onboarding/personal
+PUT {{host}}/api/users/onboarding/personal
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4
+Authorization: {{token}}
 
 {
   "name": "Julian",
@@ -37,9 +46,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjM
 }
 
 ### Onboarding - Datos compañía
-PATCH http://localhost:3000/api/users/onboarding/company
+PATCH {{host}}/api/users/onboarding/company
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4
+Authorization: {{token}}
 
 {
   "name": "Mi Empresa S.L.",
@@ -49,8 +58,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjM
 }
 
 ### Upload de logo con form-data
-PATCH http://localhost:3000/api/users/logo
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4
+PATCH {{host}}/api/users/logo
+Authorization: {{token}}
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -61,13 +70,65 @@ Content-Type: image/png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ### GET usuario actual
-GET http://localhost:3000/api/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4
+GET {{host}}/api/users/me
+Authorization: {{token}}
 
 ### DELETE usuario (soft delete)
-DELETE http://localhost:3000/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4
+DELETE {{host}}/api/users
+Authorization: {{token}}
 
 ### DELETE usuario (hard delete)
-DELETE http://localhost:3000/api/users?soft=false
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4
+DELETE {{host}}/api/users?soft=false
+Authorization: {{token}}
+
+
+##############################################################
+# Practica Final
+##############################################################
+
+### CREAR cliente
+POST {{host}}/api/clients
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "Cliente S.A.",
+  "cif": "B99999999",
+  "address": "Calle Cliente 123",
+  "email": "cliente@empresa.com",
+  "phone": "600123123"
+}
+
+###
+@idcliente =  67ee5f3a61ed47b8ddd01c78
+
+### OBTENER todos los clientes (no archivados)
+GET {{host}}/api/clients
+Authorization: {{token}}
+
+### OBTENER cliente por ID
+GET {{host}}/api/clients/{{idcliente}}
+Authorization: {{token}}
+
+### ACTUALIZAR cliente
+PUT {{host}}/api/clients/{{idcliente}}
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "Cliente Editado S.A.",
+  "email": "editado@empresa.com"
+}
+
+### ARCHIVAR cliente
+PATCH {{host}}/api/clients/{{idcliente}}/archive
+Authorization: {{token}}
+
+### RECUPERAR cliente archivado
+PATCH {{host}}/api/clients/{{idcliente}}/recover
+Authorization: {{token}}
+
+### ELIMINAR cliente definitivamente
+DELETE {{host}}/api/clients/{{idcliente}}
+Authorization: {{token}}
+

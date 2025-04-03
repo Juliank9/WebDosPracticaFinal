@@ -1,0 +1,73 @@
+### Registro de usuario
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "test1@example.com",
+  "password": "12345678"
+}
+
+### Validar email del usuario
+POST http://localhost:3000/api/auth/validate-email
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE4NjgsImV4cCI6MTc0NDAzNjY2OH0.SBqYmbWEE_F_s9Rfq0Adi_oIh1PrlYqHZwN-KUPX4JI
+
+{
+  "code": "435310"
+}
+
+### Login de usuario
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test1@example.com",
+  "password": "12345678"
+}
+
+### Onboarding - Datos personales
+PUT http://localhost:3000/api/users/onboarding/personal
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4
+
+{
+  "name": "Julian",
+  "lastname": "Villar",
+  "nif": "12345678H"
+}
+
+### Onboarding - Datos compañía
+PATCH http://localhost:3000/api/users/onboarding/company
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4
+
+{
+  "name": "Mi Empresa S.L.",
+  "cif": "B12345678",
+  "address": "Calle Ejemplo 123",
+  "isAutonomous": false
+}
+
+### Upload de logo con form-data
+PATCH http://localhost:3000/api/users/logo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="logo"; filename="logo.png"
+Content-Type: image/png
+
+< ./../uploads/logos/logo.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### GET usuario actual
+GET http://localhost:3000/api/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4
+
+### DELETE usuario (soft delete)
+DELETE http://localhost:3000/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4
+
+### DELETE usuario (hard delete)
+DELETE http://localhost:3000/api/users?soft=false
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWFhOGJjMDZjMjdmNzM4ODg3ZDMwYyIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM0MzE5MzcsImV4cCI6MTc0NDAzNjczN30.71TdgZmoi3xqSu15YMscWsLwgPJ4uxz-5lL2WnTDrD4

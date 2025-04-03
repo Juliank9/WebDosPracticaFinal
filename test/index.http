@@ -16,10 +16,10 @@ Content-Type: application/json
 ### Validar email del usuario
 POST {{host}}/api/auth/validate-email
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWU1ZDg1NjFlZDQ3YjhkZGQwMWM2OCIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM2NzQ3NTgsImV4cCI6MTc0NDI3OTU1OH0.FV1z-oVFg2LLM4GHlfhINanpvtaFAl9CDsoxP71LtFU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWU2ZDZhNThmMDFlNmE3N2ZkNmNiMSIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM2Nzg4MjYsImV4cCI6MTc0NDI4MzYyNn0.XQqy9zZd4yzBmnfTjSglr2z3Nq5M6xprUqzlnA_QqWk
 
 {
-  "code": "386208"
+  "code": "830622"
 }
 
 ### Login de usuario
@@ -32,7 +32,7 @@ Content-Type: application/json
 }
 
 ###
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWU1ZDg1NjFlZDQ3YjhkZGQwMWM2OCIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM2NzQ4NDcsImV4cCI6MTc0NDI3OTY0N30.WH3BJH3B9Vl9vrWROhQntpdPPsWyzIa4iENVensSv6I
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWU2ZDZhNThmMDFlNmE3N2ZkNmNiMSIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM2Nzg4OTEsImV4cCI6MTc0NDI4MzY5MX0.kYVtYYUVx0motIBQoRdQdFd-Ve--R3E-N7dCMTZSQEk
 
 ### Onboarding - Datos personales
 PUT {{host}}/api/users/onboarding/personal
@@ -103,7 +103,7 @@ Authorization: {{token}}
 }
 
 ###
-@idcliente =  67ee5f3a61ed47b8ddd01c78
+@idcliente =  67ee6de158f01e6a77fd6cbf
 
 ### OBTENER todos los clientes (no archivados)
 GET {{host1}}/api/clients
@@ -149,7 +149,7 @@ Authorization: {{token}}
 }
 
 ###
-@projectId =  67ee65db55efea8785dc039d
+@projectId =  67ee6dff58f01e6a77fd6cc3
 
 ### OBTENER todos los proyectos del usuario
 GET {{host}}/api/projects
@@ -179,4 +179,66 @@ Authorization: {{token}}
 
 ### ELIMINAR proyecto permanentemente
 DELETE {{host}}/api/projects/{{projectId}}
+Authorization: {{token}}
+
+# Albaranes
+
+### CREAR albarán
+POST {{host}}/api/albaranes
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "title": "Albarán inicial",
+  "description": "Trabajo realizado en campo",
+  "project": "{{projectId}}"
+}
+
+###
+@albaranId = 67ee6e2158f01e6a77fd6cc7
+
+### OBTENER todos los albaranes
+GET {{host}}/api/albaranes
+Authorization: {{token}}
+
+### OBTENER un albarán por ID
+GET {{host}}/api/albaranes/{{albaranId}}
+Authorization: {{token}}
+
+### ACTUALIZAR albarán
+PUT {{host}}/api/albaranes/{{albaranId}}
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "title": "Albarán actualizado",
+  "description": "Trabajo finalizado"
+}
+
+### ARCHIVAR albarán
+PATCH {{host}}/api/albaranes/{{albaranId}}/archive
+Authorization: {{token}}
+
+### RECUPERAR albarán
+PATCH {{host}}/api/albaranes/{{albaranId}}/recover
+Authorization: {{token}}
+
+### SUBIR firma del albarán (imagen PNG)
+PATCH {{host}}/api/albaranes/{{albaranId}}/firma
+Authorization: {{token}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="firma"; filename="firma.png"
+Content-Type: image/png
+
+< ./../uploads/firma/firma.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### VER PDF generado del albarán
+GET {{host}}/api/albaranes/{{albaranId}}/pdf
+Authorization: {{token}}
+
+### ELIMINAR albarán
+DELETE {{host}}/api/albaranes/{{albaranId}}
 Authorization: {{token}}

@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const setupSwagger = require('./swagger');
 
 // Cargar variables .env
 dotenv.config();
@@ -8,25 +9,22 @@ dotenv.config();
 // Conectar a MongoDB
 connectDB();
 
+// Crear instancia de Express
 const app = express();
+
+// Middlewares
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
 // Rutas
-const userRoutes = require('./routes/user.routes');
-const authRoutes = require('./routes/auth.routes');
-const clientRoutes = require('./routes/client.routes');
-const projectRoutes = require('./routes/project.routes');
-const albaranRoutes = require('./routes/albaran.routes');
+app.use('/api/users', require('./routes/user.routes'));
+app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/clients', require('./routes/client.routes'));
+app.use('/api/projects', require('./routes/project.routes'));
+app.use('/api/albaranes', require('./routes/albaran.routes'));
 
-app.use('/api/users', userRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/clients', clientRoutes);
-app.use('/api/projects', projectRoutes);
-app.use('/api/albaranes', albaranRoutes);
+// Swagger UI
+setupSwagger(app);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Servidor escuchando en puerto ${PORT}`));
-
-const setupSwagger = require('./swagger');
-setupSwagger(app); // Activa swagger en /api-docs
+// Exportar app (sin levantar servidor) para usar en tests
+module.exports = app;

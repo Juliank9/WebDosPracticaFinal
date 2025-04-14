@@ -32,7 +32,7 @@ Content-Type: application/json
 }
 
 ###
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWU2ZDZhNThmMDFlNmE3N2ZkNmNiMSIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDQ2MzE1MzMsImV4cCI6MTc0NTIzNjMzM30.LWJIDv5pZS_CgvDDbvnm-u6OUUtrCLLvamcfs4mjEFk
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWU2ZDZhNThmMDFlNmE3N2ZkNmNiMSIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDQ2MzQ1NjYsImV4cCI6MTc0NTIzOTM2Nn0.kgCaOEslJ3KiN0n1cQ7tBEF8ZOlozEOoluvrHft41AE
 
 ### Onboarding - Datos personales
 PUT {{host}}/api/users/onboarding/personal
@@ -143,7 +143,7 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
-  "name": "Proyecto Inicial",
+  "name": "Proyecto Inicial 1",
   "description": "Este es un proyecto de prueba",
   "client": "{{idcliente}}"
 }
@@ -189,13 +189,13 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
-  "title": "Albarán inicial",
+  "title": "Albarán Prueba",
   "description": "Trabajo realizado en campo",
   "project": "{{projectId}}"
 }
 
 ###
-@albaranId = 67ee6e2158f01e6a77fd6cc7
+@albaranId = 67fd1a30683abd4ea94124f3
 
 ### OBTENER todos los albaranes
 GET {{host}}/api/albaranes
@@ -211,7 +211,7 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
-  "title": "Albarán actualizado",
+  "title": "Albarán actualizado prueba",
   "description": "Trabajo finalizado"
 }
 

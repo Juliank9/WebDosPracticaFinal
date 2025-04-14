@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const {validationResult} = require('express-validator');
 
@@ -102,3 +103,30 @@ exports.deleteUser = async (req, res) => {
         return res.status(500).json({message: 'Error al eliminar usuario'});
     }
 };
+
+exports.sendInvitation = async (req, res) => {
+    const {email} = req.body;
+
+    if (!email) return res.status(400).json({message: 'Email obligatorio'});
+
+    // Verifica si el email ya existe
+    const existing = await User.findOne({email});
+    if (existing) return res.status(409).json({message: 'El email ya está registrado'});
+
+    const invitationPayload = {
+        email,
+        role: 'guest',
+        company: req.user.company || null, // hereda la empresa del usuario autenticado
+    };
+
+    const invitationToken = jwt.sign(invitationPayload, process.env.JWT_SECRET, {
+        expiresIn: '7d' // válido 7 días
+    });
+
+    // En práctica real se enviaría por correo. Acá lo devolvemos directamente
+    res.json({
+        message: 'Invitación generada correctamente',
+        token: invitationToken,
+    });
+};
+

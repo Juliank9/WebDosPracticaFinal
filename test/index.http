@@ -32,7 +32,7 @@ Content-Type: application/json
 }
 
 ###
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWU2ZDZhNThmMDFlNmE3N2ZkNmNiMSIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDM2Nzg4OTEsImV4cCI6MTc0NDI4MzY5MX0.kYVtYYUVx0motIBQoRdQdFd-Ve--R3E-N7dCMTZSQEk
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWU2ZDZhNThmMDFlNmE3N2ZkNmNiMSIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDQ2MzE1MzMsImV4cCI6MTc0NTIzNjMzM30.LWJIDv5pZS_CgvDDbvnm-u6OUUtrCLLvamcfs4mjEFk
 
 ### Onboarding - Datos personales
 PUT {{host}}/api/users/onboarding/personal
@@ -242,3 +242,25 @@ Authorization: {{token}}
 ### ELIMINAR albarán
 DELETE {{host}}/api/albaranes/{{albaranId}}
 Authorization: {{token}}
+
+# Invitaciones
+
+### ENVIAR invitación (desde un usuario autenticado)
+POST {{host}}/api/users/invite
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "email": "invitado@example.com"
+}
+
+###
+@inviteToken =
+### ACEPTAR invitación (registro del guest)
+POST {{host}}/api/users/invite/accept
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imludml0YWRvQGV4YW1wbGUuY29tIiwicm9sZSI6Imd1ZXN0IiwiY29tcGFueSI6bnVsbCwiaWF0IjoxNzQ0NjMyNTE2LCJleHAiOjE3NDUyMzczMTZ9.6aKevIyHqyd1vstMhCtsKnnYzE00oOA0EIB7UCm656M",
+  "password": "12345678"
+}

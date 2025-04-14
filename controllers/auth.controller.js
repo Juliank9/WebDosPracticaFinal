@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const {validationResult} = require('express-validator');
 const {hashPassword} = require('../services/password.service');
@@ -5,8 +7,6 @@ const {generateToken} = require('../services/jwt.service');
 const generateCode = require('../utils/generateCode');
 const {comparePassword} = require('../services/password.service');
 
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 
 exports.register = async (req, res) => {
     const errors = validationResult(req);
@@ -148,3 +148,52 @@ exports.acceptInvitation = async (req, res) => {
     }
 };
 
+exports.forgotPassword = async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) return res.status(400).json({ message: 'Email requerido' });
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user)
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+
+        // Crear token de recuperación válido por 15 minutos
+        const resetToken = jwt.sign(
+            { id: user._id, email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: '15m' }
+        );
+
+        // Acá en un entorno real lo enviarías por email. Por ahora lo devolvemos
+        res.status(200).json({
+            message: 'Token de recuperación generado',
+            token: resetToken,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al generar el token' });
+    }
+};
+
+exports.resetPassword = async (req, res) => {
+    const { token, newPassword } = req.body;
+
+    if (!token || !newPassword)
+        return res.status(400).json({ message: 'Faltan datos' });
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        const user = await User.findById(decoded.id);
+        if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+
+        user.password = await hashPassword(newPassword);
+        await user.save();
+
+        res.status(200).json({ message: 'Contraseña actualizada correctamente' });
+    } catch (err) {
+        console.error(err);
+        res.status(400).json({ message: 'Token inválido o expirado' });
+    }
+};

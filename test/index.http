@@ -28,7 +28,7 @@ Content-Type: application/json
 
 {
   "email": "test1@example.com",
-  "password": "12345678"
+  "password": "nuevaclave123"
 }
 
 ###
@@ -261,6 +261,26 @@ POST {{host}}/api/users/invite/accept
 Content-Type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imludml0YWRvQGV4YW1wbGUuY29tIiwicm9sZSI6Imd1ZXN0IiwiY29tcGFueSI6bnVsbCwiaWF0IjoxNzQ0NjMyNTE2LCJleHAiOjE3NDUyMzczMTZ9.6aKevIyHqyd1vstMhCtsKnnYzE00oOA0EIB7UCm656M",
+  "token": "{{inviteToken}}",
   "password": "12345678"
+}
+
+### Solicitar token de recuperación
+POST {{host}}/api/auth/forgot-password
+Content-Type: application/json
+
+{
+  "email": "test1@example.com"
+}
+
+###
+@resetToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWU2ZDZhNThmMDFlNmE3N2ZkNmNiMSIsImVtYWlsIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDQ2MzM0NTcsImV4cCI6MTc0NDYzNDM1N30.Rt64scjsoqVNnzXR-dSKp408HpmGoUInmGngriXg8YY
+
+### Restablecer contraseña con token
+POST {{host}}/api/auth/reset-password
+Content-Type: application/json
+
+{
+  "token": "{{resetToken}}",
+  "newPassword": "nuevaclave123"
 }

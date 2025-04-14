@@ -27,3 +27,6 @@ app.use('/api/albaranes', albaranRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Servidor escuchando en puerto ${PORT}`));
+
+const setupSwagger = require('./swagger');
+setupSwagger(app); // Activa swagger en /api-docs

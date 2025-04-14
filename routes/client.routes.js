@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * tags:
+ *   name: Clients
+ *   description: Gestión de clientes
+ */
+
+/**
+ * @swagger
+ * /api/clients:
+ *   post:
+ *     summary: Crear cliente
+ *     tags: [Clients]
+ *     security: [ { bearerAuth: [] } ]
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name: { type: string }
+ *     responses:
+ *       201: { description: Cliente creado }
+ */
+
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/client.controller');
